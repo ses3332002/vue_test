@@ -20,7 +20,7 @@ export default {
     },
     checkAuth(state, payload) {
       if (
-        state.defaultLogin === payload.email &&
+        state.defaultLogin.toLowerCase() === payload.email.toLowerCase() &&
         state.deaultPassword === payload.password
       ) {
         state.isAuth = true;

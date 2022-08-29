@@ -39,7 +39,6 @@ export default {
       this.$store.commit('setSearchString', '');
     }
   },
-
   computed: {
     searchString: {
       get() {

@@ -17,6 +17,7 @@
 
 <script>
 import UserCard from './UserCard.vue';
+
 export default {
   components: {
     UserCard
@@ -26,9 +27,7 @@ export default {
 
 <style scoped>
 .cards {
-  height: 100%;
   padding: 16px;
-  max-height: calc(100vh - 192px);
   overflow-y: auto;
   box-sizing: border-box;
   background-color: #fafafa !important;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="viewer">
     <control-panel />
     <md-divider />
     <cards-grid />
@@ -9,6 +9,7 @@
 <script>
 import ControlPanel from './ControlPanel.vue';
 import CardsGrid from './CardsGrid.vue';
+
 export default {
   components: {
     ControlPanel,
@@ -17,4 +18,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.viewer {
+  max-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1px auto;
+}
+</style>
