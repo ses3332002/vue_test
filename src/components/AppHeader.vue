@@ -1,8 +1,6 @@
 <template>
   <header class="md-elevation-3 md-layout md-alignment-center-space-between">
-    <span class="md-title">{{
-      $store.getters.auth ? 'Welcome, User' : 'Title'
-    }}</span>
+    <span class="md-title">{{ isAuth ? 'Welcome, User' : 'Title' }}</span>
     <md-dialog
       :md-active.sync="modalVisible"
       :md-click-outside-to-close="false"
@@ -38,12 +36,14 @@
       </md-dialog-actions>
     </md-dialog>
     <md-button class="md-dense md-raised md-primary" @click="loginHandler">
-      {{ $store.getters.auth ? 'Logout' : 'Login' }}
+      {{ isAuth ? 'Logout' : 'Login' }}
     </md-button>
   </header>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
+
 export default {
   data() {
     return {
@@ -53,10 +53,14 @@ export default {
       message: ''
     };
   },
+  computed: {
+    ...mapState('settings', { isAuth: (state) => state.isAuth })
+  },
   methods: {
+    ...mapMutations('settings', ['unsetAuth', 'checkAuth']),
     loginHandler() {
-      if (this.$store.getters.auth) {
-        this.$store.commit('unsetAuth');
+      if (this.isAuth) {
+        this.unsetAuth();
       } else {
         this.modalVisible = true;
       }
@@ -71,11 +75,11 @@ export default {
       if (this.email === '' || this.password === '') {
         return;
       }
-      this.$store.commit('checkAuth', {
+      this.checkAuth({
         email: this.email,
         password: this.password
       });
-      if (this.$store.getters.auth) {
+      if (this.isAuth) {
         this.modalVisible = false;
         this.email = '';
         this.password = '';
@@ -88,7 +92,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 header {
   padding: 0 16px;
 }

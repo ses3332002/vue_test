@@ -126,17 +126,17 @@
 
       <md-card-actions>
         <md-button class="md-accent" :disabled="sending" @click="cancelHandler"
-          >Cancel</md-button
-        >
+          >Cancel
+        </md-button>
         <md-button type="submit" class="md-primary" :disabled="sending"
-          >Save user</md-button
-        >
+          >Save user
+        </md-button>
       </md-card-actions>
     </md-card>
 
     <md-snackbar :md-active.sync="userSaved"
-      >The user {{ lastUser }} was saved with success!</md-snackbar
-    >
+      >The user {{ lastUser }} was saved with success!
+    </md-snackbar>
   </form>
 </template>
 
@@ -148,18 +148,15 @@ import {
   minLength,
   maxLength
 } from 'vuelidate/lib/validators';
+import { mapGetters, mapMutations } from 'vuex';
+
 export default {
-  created() {
-    this.$store.commit('setCurrentUser', this.id);
-    this.form = this.$store.getters.currentUser;
-  },
   props: {
     id: {
       type: String,
       require: true
     }
   },
-  mixins: [validationMixin],
   data() {
     return {
       userSaved: false,
@@ -168,6 +165,14 @@ export default {
       form: null
     };
   },
+  computed: {
+    ...mapGetters('users', ['currentUser'])
+  },
+  created() {
+    this.setCurrentUser(this.id);
+    this.form = this.currentUser;
+  },
+  mixins: [validationMixin],
   validations: {
     form: {
       firstName: {
@@ -195,6 +200,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('users', ['setCurrentUser', 'saveCurrentUser']),
     getValidationClass(fieldName) {
       const field = this.$v.form[fieldName];
 
@@ -211,7 +217,7 @@ export default {
     saveUser() {
       this.sending = true;
       this.lastUser = `${this.form.firstName} ${this.form.lastName}`;
-      this.$store.commit('saveCurrentUser', { ...this.form, id: this.id });
+      this.saveCurrentUser({ ...this.form, id: this.id });
       this.userSaved = true;
       this.sending = false;
       this.clearForm();
@@ -232,7 +238,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .md-progress-bar {
   position: absolute;
   top: 0;

@@ -17,18 +17,6 @@ export default {
   },
 
   getters: {
-    searchString(state) {
-      return state.searchString;
-    },
-    users(state) {
-      return state.users;
-    },
-    gender(state) {
-      return state.genderFilter;
-    },
-    sorting(state) {
-      return state.nameSorting;
-    },
     currentUser(state) {
       return {
         title: state.currentUser.name.title,

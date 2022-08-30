@@ -18,9 +18,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .viewer {
-  max-height: 100%;
   display: grid;
   grid-template-rows: auto 1px auto;
 }

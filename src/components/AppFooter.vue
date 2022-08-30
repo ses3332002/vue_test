@@ -1,11 +1,18 @@
 <template>
   <footer class="md-elevation-3 md-layout md-alignment-center-center">
     <span class="md-subheading">{{
-      `In selection: ${$store.getters.usersToShow.length}. Total: ${$store.getters.users.length}`
+      `In selection: ${usersToShow.length}. Total: ${users.length}`
     }}</span>
   </footer>
 </template>
 
 <script>
-export default {};
+import { mapGetters, mapState } from 'vuex';
+
+export default {
+  computed: {
+    ...mapState('users', { users: (state) => state.users }),
+    ...mapGetters('users', ['usersToShow'])
+  }
+};
 </script>

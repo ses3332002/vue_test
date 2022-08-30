@@ -25,7 +25,7 @@
           <md-option value="female">Female</md-option>
         </md-select>
       </md-field>
-      <router-link v-if="$store.getters.auth" :to="'edit/new'">
+      <router-link v-if="isAuth" :to="'edit/new'">
         <md-button class="md-dense md-raised new_user">New user</md-button>
       </router-link>
     </div>
@@ -33,42 +33,55 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from 'vuex';
+
 export default {
-  methods: {
-    clearHandler() {
-      this.$store.commit('setSearchString', '');
-    }
-  },
   computed: {
+    ...mapState('settings', { isAuth: (state) => state.isAuth }),
+    ...mapState('users', {
+      searchStringRO: (state) => state.searchString,
+      genderRO: (state) => state.genderFilter,
+      sortingRO: (state) => state.nameSorting
+    }),
     searchString: {
       get() {
-        return this.$store.getters.searchString;
+        return this.searchStringRO;
       },
       set(value) {
-        this.$store.commit('setSearchString', value);
+        this.setSearchString(value);
       }
     },
     gender: {
       get() {
-        return this.$store.getters.gender;
+        return this.genderRO;
       },
       set(value) {
-        this.$store.commit('setGenderFilter', value);
+        this.setGenderFilter(value);
       }
     },
     sorting: {
       get() {
-        return this.$store.getters.sorting;
+        return this.sortingRO;
       },
       set(value) {
-        this.$store.commit('setNameSorting', value);
+        this.setNameSorting(value);
       }
+    }
+  },
+  methods: {
+    ...mapMutations('users', [
+      'setSearchString',
+      'setGenderFilter',
+      'setNameSorting'
+    ]),
+    clearHandler() {
+      this.setSearchString('');
     }
   }
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .input {
   margin: 8px;
   width: 256px;
@@ -76,11 +89,11 @@ export default {
 
 .filter {
   margin: 8px;
-  width: 96px;
+  width: 128px;
 }
 
-.md-menu-content.md-select-menu {
-  width: 96px !important;
+.md-menu-content {
+  max-width: 96px !important;
 }
 
 .new_user {

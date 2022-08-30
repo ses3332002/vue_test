@@ -15,18 +15,15 @@
       Age: {{ user.dob.age }}
     </md-card-content>
     <md-card-actions>
-      <router-link :to="$store.getters.auth ? 'edit/' + user.id.value : ''">
-        <md-button
-          class="md-icon-button md-primary"
-          :disabled="!$store.getters.auth"
-        >
+      <router-link :to="isAuth ? 'edit/' + user.id.value : ''">
+        <md-button class="md-icon-button md-primary" :disabled="!isAuth">
           <md-icon class="item">edit</md-icon>
         </md-button>
       </router-link>
       <md-button
         class="md-icon-button md-accent"
         @click="itemDeleteHandler"
-        :disabled="!$store.getters.auth"
+        :disabled="!isAuth"
       >
         <md-icon class="item">delete_outline</md-icon>
       </md-button>
@@ -35,6 +32,8 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from 'vuex';
+
 export default {
   props: {
     user: {
@@ -42,16 +41,20 @@ export default {
       required: true
     }
   },
-
+  computed: {
+    ...mapState('settings', { isAuth: (state) => state.isAuth })
+  },
   methods: {
+    ...mapMutations('users', ['deleteUser']),
+
     itemDeleteHandler() {
-      this.$store.commit('deleteUser', this.user.id.value);
+      this.deleteUser(this.user.id.value);
     }
   }
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .todo_item {
   margin: 16px;
   display: flex;

@@ -1,13 +1,13 @@
 <template>
   <md-content class="cards md-scrollbar md-layout md-alignment-top-center">
     <md-empty-state
-      v-if="$store.getters.usersToShow.length === 0"
+      v-if="usersToShow.length === 0"
       md-icon="no_accounts"
       md-label="No data in list"
     />
     <user-card
       v-else
-      v-for="(user, index) in $store.getters.usersToShow"
+      v-for="(user, index) in usersToShow"
       :key="index"
       :user="user"
       class="md-layout-item md-large-size-25 md-medium-size-33 md-small-size-50 md-xsmall-size-100"
@@ -17,15 +17,19 @@
 
 <script>
 import UserCard from './UserCard.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
     UserCard
+  },
+  computed: {
+    ...mapGetters('users', ['usersToShow'])
   }
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .cards {
   padding: 16px;
   overflow-y: auto;
