@@ -42,7 +42,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('settings', { isAuth: (state) => state.isAuth })
+    ...mapState('settings', { isAuth: 'isAuth' })
   },
   methods: {
     ...mapMutations('users', ['deleteUser']),
@@ -75,9 +75,5 @@ export default {
 
 .avatar {
   border-radius: 50%;
-}
-
-.md-card {
-  margin: 8px 0;
 }
 </style>

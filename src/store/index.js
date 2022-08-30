@@ -9,11 +9,15 @@ export default new Vuex.Store({
   modules: {
     users: {
       namespaced: true,
-      ...users
+      state: users.state,
+      actions: { ...users.actions },
+      getters: { ...users.getters },
+      mutations: { ...users.mutations }
     },
     settings: {
       namespaced: true,
-      ...settings
+      state: settings.state,
+      mutations: { ...settings.mutations }
     }
   }
 });

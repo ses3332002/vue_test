@@ -7,12 +7,13 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
 
+const { mapGetters, mapState } = createNamespacedHelpers('users');
 export default {
   computed: {
-    ...mapState('users', { users: (state) => state.users }),
-    ...mapGetters('users', ['usersToShow'])
+    ...mapState({ users: 'users' }),
+    ...mapGetters(['usersToShow'])
   }
 };
 </script>

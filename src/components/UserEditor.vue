@@ -148,7 +148,9 @@ import {
   minLength,
   maxLength
 } from 'vuelidate/lib/validators';
-import { mapGetters, mapMutations } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
+
+const { mapGetters, mapMutations } = createNamespacedHelpers('users');
 
 export default {
   props: {
@@ -166,7 +168,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('users', ['currentUser'])
+    ...mapGetters(['currentUser'])
   },
   created() {
     this.setCurrentUser(this.id);
@@ -200,7 +202,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('users', ['setCurrentUser', 'saveCurrentUser']),
+    ...mapMutations(['setCurrentUser', 'saveCurrentUser']),
     getValidationClass(fieldName) {
       const field = this.$v.form[fieldName];
 

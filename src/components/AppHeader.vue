@@ -42,7 +42,9 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
+
+const { mapMutations, mapState } = createNamespacedHelpers('settings');
 
 export default {
   data() {
@@ -54,10 +56,10 @@ export default {
     };
   },
   computed: {
-    ...mapState('settings', { isAuth: (state) => state.isAuth })
+    ...mapState({ isAuth: 'isAuth' })
   },
   methods: {
-    ...mapMutations('settings', ['unsetAuth', 'checkAuth']),
+    ...mapMutations(['unsetAuth', 'checkAuth']),
     loginHandler() {
       if (this.isAuth) {
         this.unsetAuth();

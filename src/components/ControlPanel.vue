@@ -33,15 +33,15 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   computed: {
-    ...mapState('settings', { isAuth: (state) => state.isAuth }),
+    ...mapState('settings', { isAuth: 'isAuth' }),
     ...mapState('users', {
-      searchStringRO: (state) => state.searchString,
-      genderRO: (state) => state.genderFilter,
-      sortingRO: (state) => state.nameSorting
+      searchStringRO: 'searchString',
+      genderRO: 'genderFilter',
+      sortingRO: 'nameSorting'
     }),
     searchString: {
       get() {

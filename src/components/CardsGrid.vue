@@ -17,14 +17,16 @@
 
 <script>
 import UserCard from './UserCard.vue';
-import { mapGetters } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
+
+const { mapGetters } = createNamespacedHelpers('users');
 
 export default {
   components: {
     UserCard
   },
   computed: {
-    ...mapGetters('users', ['usersToShow'])
+    ...mapGetters(['usersToShow'])
   }
 };
 </script>
@@ -35,9 +37,6 @@ export default {
   overflow-y: auto;
   box-sizing: border-box;
   background-color: #fafafa !important;
-}
-
-.md-layout-item {
-  margin: 8px;
+  gap: 16px;
 }
 </style>
