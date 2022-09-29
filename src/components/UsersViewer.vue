@@ -11,6 +11,7 @@ import ControlPanel from './ControlPanel.vue';
 import CardsGrid from './CardsGrid.vue';
 
 export default {
+  name: 'UsersViewer',
   components: {
     ControlPanel,
     CardsGrid
@@ -21,6 +22,6 @@ export default {
 <style lang="scss" scoped>
 .viewer {
   display: grid;
-  grid-template-rows: auto 1px auto;
+  grid-template-rows: auto 1px 1fr;
 }
 </style>

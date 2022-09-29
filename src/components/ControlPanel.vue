@@ -36,6 +36,7 @@
 import { mapState, mapMutations } from 'vuex';
 
 export default {
+  name: 'ControlPanel',
   computed: {
     ...mapState('settings', { isAuth: 'isAuth' }),
     ...mapState('users', {

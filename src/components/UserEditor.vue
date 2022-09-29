@@ -153,6 +153,7 @@ import { createNamespacedHelpers } from 'vuex';
 const { mapGetters, mapMutations } = createNamespacedHelpers('users');
 
 export default {
+  name: 'UserEditor',
   props: {
     id: {
       type: String,

@@ -11,6 +11,7 @@ import { createNamespacedHelpers } from 'vuex';
 
 const { mapGetters, mapState } = createNamespacedHelpers('users');
 export default {
+  name: 'AppFooter',
   computed: {
     ...mapState({ users: 'users' }),
     ...mapGetters(['usersToShow'])

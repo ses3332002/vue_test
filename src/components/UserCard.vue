@@ -28,18 +28,38 @@
         <md-icon class="item">delete_outline</md-icon>
       </md-button>
     </md-card-actions>
+    <confirm-popup v-if="confirmPopupVisible" title="Delete record?">
+      <template #actions>
+        <md-button class="md-accent" @click="DeleteConfirmHandler">
+          Confirm
+        </md-button>
+        <md-button class="md-primary" @click="DeleteCancelHandler">
+          Cancel
+        </md-button>
+      </template>
+    </confirm-popup>
   </md-card>
 </template>
 
 <script>
 import { mapMutations, mapState } from 'vuex';
+import ConfirmPopup from './ConfirmPopup';
 
 export default {
+  name: 'UserCard',
+  data() {
+    return {
+      confirmPopupVisible: false
+    };
+  },
   props: {
     user: {
       type: Object,
       required: true
     }
+  },
+  components: {
+    ConfirmPopup
   },
   computed: {
     ...mapState('settings', { isAuth: 'isAuth' })
@@ -48,7 +68,14 @@ export default {
     ...mapMutations('users', ['deleteUser']),
 
     itemDeleteHandler() {
+      this.confirmPopupVisible = true;
+    },
+    DeleteConfirmHandler() {
+      this.confirmPopupVisible = false;
       this.deleteUser(this.user.id.value);
+    },
+    DeleteCancelHandler() {
+      this.confirmPopupVisible = false;
     }
   }
 };

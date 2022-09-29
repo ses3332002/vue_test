@@ -43,10 +43,12 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
+import TabHandler from '@/mixins/tabHandler';
 
 const { mapMutations, mapState } = createNamespacedHelpers('settings');
 
 export default {
+  name: 'AppHeader',
   data() {
     return {
       modalVisible: false,
@@ -90,7 +92,8 @@ export default {
         this.message = 'Wrong credentials';
       }
     }
-  }
+  },
+  mixins: [TabHandler]
 };
 </script>
 

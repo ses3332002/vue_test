@@ -7,8 +7,8 @@
     />
     <user-card
       v-else
-      v-for="(user, index) in usersToShow"
-      :key="index"
+      v-for="user in usersToShow"
+      :key="user.id.value"
       :user="user"
       class="md-layout-item md-large-size-25 md-medium-size-33 md-small-size-50 md-xsmall-size-100"
     />
@@ -22,6 +22,7 @@ import { createNamespacedHelpers } from 'vuex';
 const { mapGetters } = createNamespacedHelpers('users');
 
 export default {
+  name: 'CardsGrid',
   components: {
     UserCard
   },
@@ -38,5 +39,6 @@ export default {
   box-sizing: border-box;
   background-color: #fafafa !important;
   gap: 16px;
+  height: 100%;
 }
 </style>
